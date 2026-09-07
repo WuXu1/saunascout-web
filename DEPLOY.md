@@ -1,4 +1,4 @@
-# SaunaScout — landing page
+# Deployment
 
 Static one-page site for **https://saunascout.co.uk** — a "coming soon" page with
 App Store / Google Play buttons for the SaunaScout iOS/Android app.
