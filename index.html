@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SaunaScout — Find Scotland's wild saunas</title>
+<meta name="description" content="SaunaScout maps every wild and outdoor sauna across Scotland. Discover them on the map, bag them like Munros, and track your progress. Coming soon to iOS and Android." />
+<link rel="canonical" href="https://saunascout.co.uk/" />
+<meta name="theme-color" content="#161b2b" />
+
+<!-- Open Graph / social -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="SaunaScout" />
+<meta property="og:title" content="SaunaScout — Find Scotland's wild saunas" />
+<meta property="og:description" content="Every wild and outdoor sauna in Scotland, on one map. Bag them like Munros and track your progress." />
+<meta property="og:url" content="https://saunascout.co.uk/" />
+<meta property="og:image" content="https://saunascout.co.uk/assets/icon-og.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="SaunaScout — Find Scotland's wild saunas" />
+<meta name="twitter:description" content="Every wild and outdoor sauna in Scotland, on one map. Bag them like Munros." />
+<meta name="twitter:image" content="https://saunascout.co.uk/assets/icon-og.jpg" />
+
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png" />
+<link rel="apple-touch-icon" href="/assets/icon-180.png" />
+
+<style>
+  :root {
+    --navy-900: #10141f;
+    --navy-800: #161b2b;
+    --navy-700: #1e2538;
+    --navy-600: #2a3350;
+    --amber: #e8944a;
+    --amber-strong: #e07326;
+    --ember: #c74d1a;
+    --green: #33bf66;
+    --cream: #fff2e0;
+    --ink: #f4ece2;
+    --ink-dim: #b9b3a8;
+    --ink-faint: #8a8578;
+    --border: rgba(255, 235, 210, 0.10);
+    --radius: 16px;
+    --maxw: 1080px;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    color: var(--ink);
+    background: var(--navy-800);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  a { color: var(--amber); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img { max-width: 100%; display: block; }
+  h1, h2, h3 { line-height: 1.15; margin: 0; letter-spacing: -0.02em; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Background glow ---------- */
+  .bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(60% 45% at 50% 0%, rgba(224, 115, 38, 0.28), transparent 70%),
+      radial-gradient(40% 30% at 85% 15%, rgba(199, 77, 26, 0.18), transparent 70%),
+      linear-gradient(180deg, var(--navy-800) 0%, var(--navy-900) 60%, #0b0e16 100%);
+  }
+  .bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 240, 220, 0.05) 1px, transparent 1.4px);
+    background-size: 34px 34px;
+    mask-image: radial-gradient(70% 60% at 50% 20%, #000 0%, transparent 80%);
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: saturate(140%) blur(10px);
+    background: rgba(16, 20, 31, 0.6);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .brand:hover { text-decoration: none; }
+  .brand img { width: 30px; height: 30px; border-radius: 8px; }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a { color: var(--ink-dim); font-size: 0.94rem; }
+  .nav-links a:hover { color: var(--ink); text-decoration: none; }
+  @media (max-width: 640px) { .nav-links { display: none; } }
+
+  /* ---------- Hero ---------- */
+  .hero { text-align: center; padding: 88px 0 64px; }
+  .hero .app-icon {
+    width: 108px;
+    height: 108px;
+    border-radius: 26px;
+    margin: 0 auto 30px;
+    box-shadow: 0 20px 60px -12px rgba(224, 115, 38, 0.5), 0 0 0 1px var(--border);
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    padding: 6px 14px;
+    border: 1px solid rgba(224, 115, 38, 0.35);
+    border-radius: 999px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(2.3rem, 6vw, 3.9rem);
+    font-weight: 800;
+    max-width: 14ch;
+    margin: 0 auto;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(180deg, var(--amber) 0%, var(--ember) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero p.lede {
+    font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+    color: var(--ink-dim);
+    max-width: 46ch;
+    margin: 22px auto 0;
+  }
+
+  /* ---------- Store badges ---------- */
+  .stores {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 36px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    min-width: 210px;
+    border-radius: 14px;
+    background: #000;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    cursor: not-allowed;
+    position: relative;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+  .badge[href] { cursor: pointer; }
+  .badge[href]:hover { transform: translateY(-2px); text-decoration: none; }
+  .badge:not([href]) { opacity: 0.55; }
+  .badge svg { width: 26px; height: 26px; flex: none; fill: #fff; }
+  .badge .b-text { text-align: left; line-height: 1.1; }
+  .badge .b-small { display: block; font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+  .badge .b-big { display: block; font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; }
+  .stores-note {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+  .notify {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 22px;
+    padding: 11px 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(224, 115, 38, 0.4);
+    color: var(--amber);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .notify:hover { background: rgba(224, 115, 38, 0.1); text-decoration: none; }
+
+  /* ---------- Feature strip ---------- */
+  section { padding: 72px 0; }
+  .section-head { text-align: center; max-width: 42ch; margin: 0 auto 48px; }
+  .section-head h2 { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 800; }
+  .section-head p { color: var(--ink-dim); margin-top: 14px; }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 860px) { .features { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
+  .card {
+    background: linear-gradient(180deg, var(--navy-700), var(--navy-800));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+  .card .ic {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: rgba(224, 115, 38, 0.14);
+    margin-bottom: 18px;
+  }
+  .card .ic svg { width: 24px; height: 24px; stroke: var(--amber); fill: none; stroke-width: 1.8; }
+  .card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+  .card p { color: var(--ink-dim); font-size: 0.97rem; margin: 0; }
+
+  /* ---------- Steps ---------- */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; counter-reset: step; }
+  @media (max-width: 860px) { .steps { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
+  .step { position: relative; padding-left: 56px; }
+  .step::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: 0; top: 0;
+    width: 40px; height: 40px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--amber), var(--ember));
+    color: #fff; font-weight: 800;
+  }
+  .step h3 { font-size: 1.1rem; margin-bottom: 6px; }
+  .step p { color: var(--ink-dim); font-size: 0.95rem; margin: 0; }
+
+  /* ---------- CTA band ---------- */
+  .cta {
+    text-align: center;
+    background: linear-gradient(180deg, rgba(224,115,38,0.12), transparent);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .cta h2 { font-size: clamp(1.6rem, 4vw, 2.3rem); font-weight: 800; }
+  .cta p { color: var(--ink-dim); margin-top: 12px; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 44px 0;
+    color: var(--ink-faint);
+    font-size: 0.88rem;
+  }
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .foot a { color: var(--ink-dim); }
+  .foot .foot-links { display: flex; gap: 20px; flex-wrap: wrap; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/">
+      <img src="/assets/icon-256.png" alt="" />
+      <span>SaunaScout</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#get">Get the app</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <img class="app-icon" src="/assets/icon-256.png" alt="SaunaScout app icon" width="256" height="256" />
+      <span class="eyebrow">Scotland's wild sauna map</span>
+      <h1>Find every <span class="accent">wild sauna</span> in Scotland</h1>
+      <p class="lede">
+        Discover outdoor and wild saunas on the map, bag them like Munros, and
+        track your progress across the country.
+      </p>
+
+      <div class="stores" id="get">
+        <!--
+          STORE LINKS — not live yet.
+          When the listings are ready, set APP_STORE_URL / PLAY_STORE_URL in the
+          <script> at the bottom of this file. That single change activates every
+          badge on the page (turns them into real links and updates the label).
+        -->
+        <a class="badge" data-store="ios" aria-label="SaunaScout on the App Store">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.05 12.53c-.03-2.9 2.37-4.29 2.48-4.36-1.35-1.98-3.46-2.25-4.2-2.28-1.79-.18-3.5 1.05-4.4 1.05-.92 0-2.31-1.03-3.8-1-1.95.03-3.76 1.14-4.76 2.9-2.04 3.53-.52 8.75 1.45 11.61.96 1.4 2.11 2.98 3.6 2.92 1.45-.06 2-.94 3.74-.94 1.74 0 2.24.94 3.77.91 1.56-.03 2.55-1.42 3.5-2.83 1.11-1.62 1.57-3.19 1.59-3.27-.04-.02-3.05-1.17-3.08-4.63zM14.2 4.15c.8-.97 1.34-2.32 1.19-3.66-1.15.05-2.55.77-3.38 1.73-.74.86-1.39 2.24-1.22 3.55 1.29.1 2.6-.65 3.41-1.62z"/></svg>
+          <span class="b-text">
+            <span class="b-small" data-soon="Coming soon to the" data-live="Download on the">Coming soon to the</span>
+            <span class="b-big">App Store</span>
+          </span>
+        </a>
+        <a class="badge" data-store="android" aria-label="SaunaScout on Google Play">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2c-.24.25-.38.64-.38 1.15v17.3c0 .5.14.9.4 1.14l.06.05L13 12.6v-.2L3.68 2.15l-.08.05zM16.1 15.7l-3.1-3.1v-.2l3.1-3.1.07.04 3.68 2.1c1.05.6 1.05 1.57 0 2.17l-3.68 2.1-.07.04zM12.9 12.4L3.6 21.8c.35.36.92.4 1.57.05l10.94-6.2-3.2-3.25zM3.6 2.2l9.3 9.4 3.2-3.25L5.17 2.15c-.65-.37-1.22-.32-1.57.05z"/></svg>
+          <span class="b-text">
+            <span class="b-small" data-soon="Coming soon on" data-live="Get it on">Coming soon on</span>
+            <span class="b-big">Google Play</span>
+          </span>
+        </a>
+      </div>
+      <p class="stores-note">Launching on iOS first, with Android to follow.</p>
+      <!-- Replace with your real address (e.g. hello@saunascout.co.uk) once mail is set up. -->
+      <a class="notify" href="mailto:hello@saunascout.co.uk?subject=Notify%20me%20when%20SaunaScout%20launches">
+        Email me when it launches
+      </a>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Your guide to Scotland's steam</h2>
+        <p>From coastal barrel saunas to lochside wood-fired huts — all in one place.</p>
+      </div>
+      <div class="features">
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M9 3 3 5v16l6-2 6 2 6-2V3l-6 2-6-2Z"/><path d="M9 3v16M15 5v16"/></svg></div>
+          <h3>One map, every sauna</h3>
+          <p>Browse wild and outdoor saunas across Scotland, with locations, directions and the details that matter before you go.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4"/><circle cx="12" cy="12" r="3.5"/></svg></div>
+          <h3>Bag them like Munros</h3>
+          <p>Tick off each sauna you visit, build your streak and watch your personal map fill in over the seasons.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="8" r="4"/><path d="M21 21v-2a4 4 0 0 0-3-3.9"/></svg></div>
+          <h3>Built by the community</h3>
+          <p>Spotted a sauna that's missing? Suggest it in a tap. New locations are reviewed and added for everyone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>How it works</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <h3>Open the map</h3>
+          <p>See every known wild sauna near you or anywhere in Scotland.</p>
+        </div>
+        <div class="step">
+          <h3>Go for a session</h3>
+          <p>Get directions, check the details, and head out for a sweat and a dip.</p>
+        </div>
+        <div class="step">
+          <h3>Bag it</h3>
+          <p>Mark it visited and track your progress towards the full set.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <h2>Be first through the door</h2>
+      <p>SaunaScout is launching soon on iOS, then Android.</p>
+      <div class="stores">
+        <a class="badge" data-store="ios" aria-label="SaunaScout on the App Store">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.05 12.53c-.03-2.9 2.37-4.29 2.48-4.36-1.35-1.98-3.46-2.25-4.2-2.28-1.79-.18-3.5 1.05-4.4 1.05-.92 0-2.31-1.03-3.8-1-1.95.03-3.76 1.14-4.76 2.9-2.04 3.53-.52 8.75 1.45 11.61.96 1.4 2.11 2.98 3.6 2.92 1.45-.06 2-.94 3.74-.94 1.74 0 2.24.94 3.77.91 1.56-.03 2.55-1.42 3.5-2.83 1.11-1.62 1.57-3.19 1.59-3.27-.04-.02-3.05-1.17-3.08-4.63zM14.2 4.15c.8-.97 1.34-2.32 1.19-3.66-1.15.05-2.55.77-3.38 1.73-.74.86-1.39 2.24-1.22 3.55 1.29.1 2.6-.65 3.41-1.62z"/></svg>
+          <span class="b-text"><span class="b-small" data-soon="Coming soon to the" data-live="Download on the">Coming soon to the</span><span class="b-big">App Store</span></span>
+        </a>
+        <a class="badge" data-store="android" aria-label="SaunaScout on Google Play">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2c-.24.25-.38.64-.38 1.15v17.3c0 .5.14.9.4 1.14l.06.05L13 12.6v-.2L3.68 2.15l-.08.05zM16.1 15.7l-3.1-3.1v-.2l3.1-3.1.07.04 3.68 2.1c1.05.6 1.05 1.57 0 2.17l-3.68 2.1-.07.04zM12.9 12.4L3.6 21.8c.35.36.92.4 1.57.05l10.94-6.2-3.2-3.25zM3.6 2.2l9.3 9.4 3.2-3.25L5.17 2.15c-.65-.37-1.22-.32-1.57.05z"/></svg>
+          <span class="b-text"><span class="b-small" data-soon="Coming soon on" data-live="Get it on">Coming soon on</span><span class="b-big">Google Play</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>&copy; <span id="year">2026</span> SaunaScout</span>
+    <span class="foot-links">
+      <a href="mailto:hello@saunascout.co.uk">Contact</a>
+      <a href="/privacy.html">Privacy</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ------------------------------------------------------------------
+     APP STORE LINKS
+     Paste the real URLs here when the listings go live. Leaving a value
+     empty keeps that badge in its "Coming soon" state.
+  ------------------------------------------------------------------ */
+  var APP_STORE_URL = "";   // e.g. "https://apps.apple.com/gb/app/idXXXXXXXXXX"
+  var PLAY_STORE_URL = "";  // e.g. "https://play.google.com/store/apps/details?id=uk.co.saunascout"
+
+  [["ios", APP_STORE_URL], ["android", PLAY_STORE_URL]].forEach(function (pair) {
+    var url = pair[1];
+    if (!url) return;
+    document.querySelectorAll('.badge[data-store="' + pair[0] + '"]').forEach(function (badge) {
+      badge.setAttribute("href", url);
+      badge.setAttribute("target", "_blank");
+      badge.setAttribute("rel", "noopener");
+      var small = badge.querySelector(".b-small");
+      if (small && small.dataset.live) small.textContent = small.dataset.live;
+    });
+  });
+</script>
+</body>
+</html>
