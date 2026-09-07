@@ -8,7 +8,8 @@ Plain HTML + CSS, no build step. Hosted on **GitHub Pages**, domain registered a
 
 ```
 index.html        # the page
-privacy.html      # placeholder privacy policy (required by both app stores — finish before launch)
+privacy.html      # privacy & cookies (covers the website; app policy still to be added)
+terms.html        # website terms of use
 404.html          # not-found page
 assets/           # app icon in a few sizes, favicon
 CNAME             # custom domain for GitHub Pages (saunascout.co.uk)
@@ -123,9 +124,13 @@ Edit files, commit to `main`, push. GitHub Pages redeploys in ~1 minute.
 
 ## Before app-store submission checklist
 
-- [ ] Finish `privacy.html` (real data-handling details, sub-processors, retention)
+- [ ] Add the **app** privacy policy (the current `privacy.html` covers only the
+      website). Both stores require a working privacy-policy URL, and Google Play
+      needs a Data Safety declaration.
 - [ ] Set `APP_STORE_URL` / `PLAY_STORE_URL` in `index.html`
 - [ ] Set up the `hello@saunascout.co.uk` mailbox (or change the address in
-      `index.html` + `privacy.html` to one that works)
+      `index.html`, `privacy.html`, `terms.html` to one that works)
 - [ ] Replace placeholder store buttons with official badge artwork
 - [ ] Add real app screenshots to the page (optional but recommended)
+- [ ] If website analytics are added later, use a cookieless tool (e.g. Plausible)
+      or add a consent banner, and update the Cookies section of `privacy.html`
