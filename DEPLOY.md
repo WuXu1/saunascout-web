@@ -6,12 +6,19 @@ App Store / Google Play buttons for the SaunaScout iOS/Android app.
 Plain HTML + CSS, no build step. Hosted on **GitHub Pages**, domain registered at
 **names.co.uk**.
 
+Follows the app's **"Ember & Pine"** design system: warm cream canvas, deep pine
+green, ember-orange accent, generous soft radii. Fonts are **Fraunces** (serif
+headings), **Figtree** (body) and **Caveat** (the handwritten flourish), loaded
+from Google Fonts. Light and dark ("cabin at night") both supported via
+`prefers-color-scheme`. Colour tokens mirror `mobile/src/theme/colors.ts` in the
+app repo — keep them in step if the app palette changes.
+
 ```
-index.html        # the page
+index.html        # the page — "Ember & Pine" look, matching the app
 privacy.html      # privacy & cookies (covers the website; app policy still to be added)
 terms.html        # website terms of use
 404.html          # not-found page
-assets/           # app icon in a few sizes, favicon
+assets/           # app icon in a few sizes, favicon, pages.css (shared text-page styles)
 CNAME             # custom domain for GitHub Pages (saunascout.co.uk)
 robots.txt, sitemap.xml
 .nojekyll         # tell GitHub Pages to serve files as-is

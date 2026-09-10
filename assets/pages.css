@@ -1,0 +1,58 @@
+/* Ember & Pine — shared styles for the text pages (privacy, terms). */
+:root {
+  --canvas: #F7F3EA;
+  --surface: #FFFDF8;
+  --border: #E1D8C6;
+  --ink: #1C1917;
+  --ink-muted: #6B635A;
+  --ink-faint: #9C9288;
+  --pine: #1F3D34;
+  --pine-soft: #2F5A4C;
+  --coal: #B4471F;
+  --ember: #E07326;
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --canvas: #14110F;
+    --surface: #201C18;
+    --border: #332C25;
+    --ink: #F5EFE4;
+    --ink-muted: #A79D90;
+    --ink-faint: #7A7167;
+    --pine-soft: #8FB6B0;
+    --coal: #D2603A;
+    --ember: #F08A3C;
+  }
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 680px; margin: 0 auto; padding: 56px 24px 96px; }
+a { color: var(--coal); }
+h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(2rem, 5vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.12; margin: 0 0 10px; }
+h2 { font-family: var(--serif); font-weight: 600; font-size: 1.3rem; letter-spacing: -0.01em; margin: 44px 0 10px; }
+p, li { color: var(--ink-muted); }
+strong { color: var(--ink); }
+.meta { color: var(--ink-faint); font-size: 0.92rem; margin-bottom: 40px; }
+.back {
+  display: inline-block; margin-bottom: 36px;
+  color: var(--ink-faint); text-decoration: none;
+  font-weight: 500; font-size: 0.95rem;
+}
+.back:hover { color: var(--ink); }
+.lede { color: var(--ink); font-size: 1.12rem; }
+.note {
+  border-left: 2px solid color-mix(in srgb, var(--ember) 55%, transparent);
+  padding: 4px 0 4px 16px; margin: 24px 0;
+  color: var(--ink-muted); font-size: 0.98rem;
+}
