@@ -1,6 +1,6 @@
 # Deployment
 
-Static one-page site for **https://saunascout.co.uk** — a "coming soon" page with
+Static one-page site for **https://saunascout.app** — a "coming soon" page with
 App Store / Google Play buttons for the SaunaScout iOS/Android app.
 
 Plain HTML + CSS, no build step. Hosted on **GitHub Pages**, domain registered at
@@ -19,7 +19,7 @@ privacy.html      # privacy & cookies (covers the website; app policy still to b
 terms.html        # website terms of use
 404.html          # not-found page
 assets/           # app icon in a few sizes, favicon, pages.css (shared text-page styles)
-CNAME             # custom domain for GitHub Pages (saunascout.co.uk)
+CNAME             # custom domain for GitHub Pages (saunascout.app)
 robots.txt, sitemap.xml
 .nojekyll         # tell GitHub Pages to serve files as-is
 ```
@@ -70,7 +70,7 @@ git push -u origin main
 Repo → **Settings → Pages**
 - **Source:** Deploy from a branch
 - **Branch:** `main` / `/ (root)` → **Save**
-- **Custom domain:** enter `saunascout.co.uk` → **Save**
+- **Custom domain:** enter `saunascout.app` → **Save**
   (this matches the `CNAME` file already in the repo)
 - Leave **Enforce HTTPS** unchecked for now — you can tick it once the
   certificate is issued (see step 4).
@@ -113,15 +113,15 @@ Notes:
 ### 5. Verify
 
 ```bash
-dig +short saunascout.co.uk          # → the four 185.199.x.153 addresses
-dig +short www.saunascout.co.uk      # → wuxu1.github.io + those addresses
-curl -sI https://saunascout.co.uk    # → HTTP/2 200
+dig +short saunascout.app          # → the four 185.199.x.153 addresses
+dig +short www.saunascout.app      # → wuxu1.github.io + those addresses
+curl -sI https://saunascout.app    # → HTTP/2 200
 ```
 
 Check in a browser:
-- `https://saunascout.co.uk` loads the page
+- `https://saunascout.app` loads the page
 - `http://` redirects to `https://`
-- `www.saunascout.co.uk` redirects to the apex
+- `www.saunascout.app` redirects to the apex
 
 ---
 
@@ -135,7 +135,7 @@ Edit files, commit to `main`, push. GitHub Pages redeploys in ~1 minute.
       website). Both stores require a working privacy-policy URL, and Google Play
       needs a Data Safety declaration.
 - [ ] Set `APP_STORE_URL` / `PLAY_STORE_URL` in `index.html`
-- [ ] Set up the `hello@saunascout.co.uk` mailbox (or change the address in
+- [ ] Set up the `hello@saunascout.app` mailbox (or change the address in
       `index.html`, `privacy.html`, `terms.html` to one that works)
 - [ ] Replace placeholder store buttons with official badge artwork
 - [ ] Add real app screenshots to the page (optional but recommended)
