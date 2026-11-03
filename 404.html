@@ -29,15 +29,39 @@
   .flourish { font-family: "Caveat", cursive; font-size: 1.5rem; color: var(--steam); margin: 0 0 22px; }
   p { color: var(--ink-muted); margin: 0 0 26px; }
   a { color: var(--coal); font-weight: 600; }
+  .btn { display: inline-block; background: var(--coal); color: #fff; padding: 12px 22px; border-radius: 14px; text-decoration: none; }
+  [hidden] { display: none; }
 </style>
 </head>
 <body>
-  <div>
+  <div id="lost">
     <img src="/assets/icon-256.png" alt="SaunaScout" />
     <h1>This trail goes cold</h1>
     <p class="flourish">Nothing to see but steam.</p>
     <p>We couldn't find that page.</p>
     <a href="/">&larr; Back to SaunaScout</a>
   </div>
+
+  <!-- Shared posts: saunascout.app/post/<id> opens the post in the app. -->
+  <div id="post" hidden>
+    <img src="/assets/icon-256.png" alt="SaunaScout" />
+    <h1>Someone shared a sauna with you</h1>
+    <p class="flourish">Open it in SaunaScout.</p>
+    <p>Already have the app? Tap the button. Otherwise, take a look around first.</p>
+    <p><a id="open" class="btn" href="#">Open in SaunaScout</a></p>
+    <a href="/">Get SaunaScout &rarr;</a>
+  </div>
+  <script>
+    (function () {
+      var m = location.pathname.match(/^\/post\/([0-9a-fA-F-]{36})\/?$/);
+      if (!m) return;
+      var link = "saunascout:///post/" + m[1];
+      document.title = "Open this post in SaunaScout";
+      document.getElementById("lost").hidden = true;
+      document.getElementById("post").hidden = false;
+      document.getElementById("open").href = link;
+      window.location.replace(link);
+    })();
+  </script>
 </body>
 </html>
