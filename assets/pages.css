@@ -41,7 +41,9 @@ body {
 a { color: var(--coal); }
 h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(2rem, 5vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.12; margin: 0 0 10px; }
 h2 { font-family: var(--serif); font-weight: 600; font-size: 1.3rem; letter-spacing: -0.01em; margin: 44px 0 10px; }
+h3 { font-family: var(--serif); font-weight: 600; font-size: 1.05rem; margin: 26px 0 6px; }
 p, li { color: var(--ink-muted); }
+li { margin: 6px 0; }
 strong { color: var(--ink); }
 .meta { color: var(--ink-faint); font-size: 0.92rem; margin-bottom: 40px; }
 .back {
